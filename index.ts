@@ -3,7 +3,7 @@ import cors from "cors";
 import { dbConfig } from "./utils/dbConfig";
 
 import mainApp from "./main";
-const port = 3000;
+const port = 2200;
 
 const app = express();
 app.use(cors({ origin: "*" }));
