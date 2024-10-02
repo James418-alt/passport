@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.dbConfig = void 0;
 const console_1 = require("console");
 const mongoose_1 = require("mongoose");
-const url = "mongodb://localhost:27017/passportDb";
+const url = "mongodb+srv://ebifegha123:ebifegha123@gomenticode.1l9lbmv.mongodb.net/passportDB?retryWrites=true&w=majority&appName=GomentiCode";
 const dbConfig = () => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, mongoose_1.connect)(url).then(() => {
         (0, console_1.clear)(), console.log("Server up");
