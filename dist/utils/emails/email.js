@@ -21,7 +21,7 @@ const GOOGLE_CLIENT = "76597312158-nvjq3tqe0489m3upu0flchdbu9tom9nt.apps.googleu
 const GOOGLE_URL = "https://developers.google.com/oauthplayground";
 const GOOGLE_SECRET_KEY = "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";
 const USER_MAIL = "ghettodeveloper@gmail.com";
-const LIVE_URL = `https://just-codify.web.app`;
+const LIVE_URL = `http://localhost:5175`;
 const oAuth = new googleapis_1.google.auth.OAuth2(GOOGLE_CLIENT, GOOGLE_SECRET_KEY, GOOGLE_URL);
 oAuth.setCredentials({ refresh_token: GOOGLE_REFRESH_TOKEN });
 const sendEmail = (user) => __awaiter(void 0, void 0, void 0, function* () {
@@ -31,7 +31,7 @@ const sendEmail = (user) => __awaiter(void 0, void 0, void 0, function* () {
         const token = jsonwebtoken_1.default.sign({ id: user === null || user === void 0 ? void 0 : user._id }, JSON_SECRET, {
             expiresIn: "2d",
         });
-        const url = `${LIVE_URL}/verify-account/${token}`;
+        const url = `${LIVE_URL}/verify/${token}`;
         const transporter = nodemailer_1.default.createTransport({
             service: "gmail",
             auth: {
@@ -48,7 +48,13 @@ const sendEmail = (user) => __awaiter(void 0, void 0, void 0, function* () {
             to: user === null || user === void 0 ? void 0 : user.email,
             subject: "Test Email",
             text: `Hello ${user.name} this is a test email`,
-            html: `<h1>Hello ${user === null || user === void 0 ? void 0 : user.name}</h1>`,
+            html: `<p>Hello ${user === null || user === void 0 ? void 0 : user.name}</p> 
+      <p>Your verification code is: ${user === null || user === void 0 ? void 0 : user.verifyToken} </p>
+      <button>
+      <a style={background-color: "black", color: "white", font-size: "15px"} href=${url}>Verify Account</a>
+      </button>
+      
+      `,
         };
         yield transporter.sendMail(mailOptions).then(() => {
             console.log("Email sent successfully");

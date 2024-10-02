@@ -13,7 +13,7 @@ const GOOGLE_URL = "https://developers.google.com/oauthplayground";
 const GOOGLE_SECRET_KEY = "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";
 const USER_MAIL = "ghettodeveloper@gmail.com";
 
-const LIVE_URL = `https://just-codify.web.app`;
+const LIVE_URL = `http://localhost:5175`;
 
 const oAuth = new google.auth.OAuth2(
   GOOGLE_CLIENT,
@@ -30,7 +30,7 @@ export const sendEmail = async (user: iUserData) => {
       expiresIn: "2d",
     });
 
-    const url = `${LIVE_URL}/verify-account/${token}`;
+    const url = `${LIVE_URL}/verify/${token}`;
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -48,7 +48,13 @@ export const sendEmail = async (user: iUserData) => {
       to: user?.email,
       subject: "Test Email",
       text: `Hello ${user.name} this is a test email`,
-      html: `<h1>Hello ${user?.name}</h1>`,
+      html: `<p>Hello ${user?.name}</p> 
+      <p>Your verification code is: ${user?.verifyToken} </p>
+      <button>
+      <a style={background-color: "black", color: "white", font-size: "15px"} href=${url}>Verify Account</a>
+      </button>
+      
+      `,
     };
 
     await transporter.sendMail(mailOptions).then(() => {
