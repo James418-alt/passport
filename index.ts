@@ -6,7 +6,7 @@ import mainApp from "./main";
 const port = 2200;
 
 const app = express();
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: ["http://localhost:5175"] }));
 app.use(express.json());
 mainApp(app);
 app.listen(port, () => {
